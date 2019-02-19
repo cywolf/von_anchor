@@ -176,7 +176,8 @@ class DIDDoc:
             rv.did,
             service['id'],
             service['type'],
-            service['serviceEndpoint']) for service in did_doc['service']]
+            service['serviceEndpoint'],
+            service['recipientKeys'][0]) for service in did_doc['service']]
 
         return rv
 

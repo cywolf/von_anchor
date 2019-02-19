@@ -25,7 +25,7 @@ class Service:
     (oriented toward W3C-facing operations).
     """
 
-    def __init__(self, did: str, ident: str, s_type: str, endpoint: str):
+    def __init__(self, did: str, ident: str, s_type: str, endpoint: str, key: str):
         """
         Retain service specification particulars. Raise BadIdentifier on bad input controller DID.
 
@@ -36,7 +36,8 @@ class Service:
         """
 
         self._did = canon_did(did)
-        self._id = canon_ref(self._did, ident, ';')
+        self._id = canon_ref(self._did, ident, ";")
+        self._key = key
         self._type = s_type
         self._endpoint = canon_ref(self._did, endpoint)
 
@@ -86,7 +87,8 @@ class Service:
         """
 
         return {
-            'id': self.id,
-            'type': self.type,
-            'serviceEndpoint': self.endpoint
+            "id": self.id,
+            "type": self.type,
+            "recipientKeys": [self._key],
+            "serviceEndpoint": self.endpoint,
         }
